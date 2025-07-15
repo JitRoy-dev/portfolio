@@ -137,101 +137,52 @@ const Portfolio = () => {
     </div>
   );
 
-  const EducationPage = () => (
-    <div className="min-h-screen bg-white py-12">
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Educational Qualifications</h2>
-        
-        <div className="relative">
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200"></div>
-          
-          <div className="space-y-12">
-            <div className="relative flex items-start gap-6">
-              <div className="flex-shrink-0 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                <GraduationCap className="text-white" size={24} />
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow flex-1">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Bachelor of Science in Computer Science</h3>
-                <p className="text-blue-600 font-medium mb-2">University of Technology • 2022 - 2026 (Expected)</p>
-                <p className="text-gray-600 mb-4">Current GPA: 3.8/4.0</p>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-medium text-gray-800 mb-2">Relevant Coursework:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• Data Structures & Algorithms</li>
-                      <li>• Object-Oriented Programming</li>
-                      <li>• Database Management Systems</li>
-                      <li>• Software Engineering</li>
-                      <li>• Machine Learning</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800 mb-2">Achievements:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• Dean's List (2023, 2024)</li>
-                      <li>• Academic Excellence Scholarship</li>
-                      <li>• Programming Contest Winner</li>
-                      <li>• CS Department Recognition</li>
-                    </ul>
-                  </div>
+  const ProjectsPage = () => (
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">My Projects</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            {
+              title: 'Project One',
+              description: 'A brief description of the first project, highlighting the key technologies and features.',
+              tags: ['React', 'Node.js', 'MongoDB'],
+              link: '#',
+              image: 'https://via.placeholder.com/400x250',
+            },
+            {
+              title: 'Project Two',
+              description: 'A brief description of the second project, highlighting the key technologies and features.',
+              tags: ['Python', 'TensorFlow', 'Flask'],
+              link: '#',
+              image: 'https://via.placeholder.com/400x250',
+            },
+            {
+              title: 'Project Three',
+              description: 'A brief description of the third project, highlighting the key technologies and features.',
+              tags: ['Next.js', 'GraphQL', 'PostgreSQL'],
+              link: '#',
+              image: 'https://via.placeholder.com/400x250',
+            },
+          ].map((project, index) => (
+            <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow flex flex-col overflow-hidden">
+              <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">{project.title}</h3>
+                <p className="text-gray-600 mb-4 flex-grow">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map((tag, i) => (
+                    <span key={i} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
+                <a href={project.link} className="text-blue-600 hover:underline mt-auto flex items-center gap-1">
+                  View Project <ExternalLink size={16} />
+                </a>
               </div>
             </div>
-
-            <div className="relative flex items-start gap-6">
-              <div className="flex-shrink-0 w-16 h-16 bg-green-600 rounded-full flex items-center justify-center shadow-lg">
-                <GraduationCap className="text-white" size={24} />
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow flex-1">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">High School Diploma</h3>
-                <p className="text-green-600 font-medium mb-2">Central High School • 2018 - 2022</p>
-                <p className="text-gray-600 mb-4">GPA: 3.9/4.0 • Valedictorian</p>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-medium text-gray-800 mb-2">Relevant Subjects:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• AP Computer Science A</li>
-                      <li>• AP Calculus BC</li>
-                      <li>• AP Physics</li>
-                      <li>• AP Statistics</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800 mb-2">Activities:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• Robotics Club President</li>
-                      <li>• Math Olympiad Team</li>
-                      <li>• National Honor Society</li>
-                      <li>• Volunteer Coding Instructor</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative flex items-start gap-6">
-              <div className="flex-shrink-0 w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <ExternalLink className="text-white" size={24} />
-              </div>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow flex-1">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Certifications & Online Learning</h3>
-                <div className="space-y-4">
-                  <div className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-medium text-gray-800">AWS Certified Cloud Practitioner</h4>
-                    <p className="text-sm text-gray-600">Amazon Web Services • 2024</p>
-                  </div>
-                  <div className="border-l-4 border-green-500 pl-4">
-                    <h4 className="font-medium text-gray-800">Full Stack Web Development</h4>
-                    <p className="text-sm text-gray-600">FreeCodeCamp • 2023</p>
-                  </div>
-                  <div className="border-l-4 border-purple-500 pl-4">
-                    <h4 className="font-medium text-gray-800">Machine Learning Specialization</h4>
-                    <p className="text-sm text-gray-600">Coursera (Stanford) • 2023</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
@@ -429,8 +380,8 @@ const Portfolio = () => {
         return <HomePage />;
       case 'skills':
         return <SkillsPage />;
-      case 'education':
-        return <EducationPage />;
+      case 'projects':
+        return <ProjectsPage />;
       case 'about':
         return <AboutPage />;
       case 'contact':
@@ -462,11 +413,11 @@ const Portfolio = () => {
                 onClick={() => setActiveTab('skills')}
               />
               <NavButton
-                id="education"
+                id="projects"
                 icon={GraduationCap}
-                label="Education"
-                isActive={activeTab === 'education'}
-                onClick={() => setActiveTab('education')}
+                label="Projects"
+                isActive={activeTab === 'projects'}
+                onClick={() => setActiveTab('projects')}
               />
               <NavButton
                 id="about"
