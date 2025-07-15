@@ -148,21 +148,21 @@ const Portfolio = () => {
               description: 'A brief description of the first project, highlighting the key technologies and features.',
               tags: ['React', 'Node.js', 'MongoDB'],
               link: '#',
-              image: 'https://via.placeholder.com/400x250',
+              image: 'https://cdn.dribbble.com/userupload/37305957/file/original-a8eff2815779a09a595bc733b6b76a6a.png?resize=1024x768&vertical=center',
             },
             {
               title: 'Project Two',
               description: 'A brief description of the second project, highlighting the key technologies and features.',
               tags: ['Python', 'TensorFlow', 'Flask'],
               link: '#',
-              image: 'https://via.placeholder.com/400x250',
+              image: 'https://cdn.dribbble.com/userupload/43074059/file/original-e723fe6f81f0188a4f4676abbcf06294.webp?resize=1504x1128&vertical=center',
             },
             {
               title: 'Project Three',
               description: 'A brief description of the third project, highlighting the key technologies and features.',
               tags: ['Next.js', 'GraphQL', 'PostgreSQL'],
               link: '#',
-              image: 'https://via.placeholder.com/400x250',
+              image: 'https://cdn.dribbble.com/userupload/43670863/file/original-a905a8d05e8b69c8452c7409f8794584.webp?resize=1024x745&vertical=center',
             },
           ].map((project, index) => (
             <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow flex flex-col overflow-hidden">
