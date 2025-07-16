@@ -1,8 +1,44 @@
-import React, { useState } from 'react';
-import { Home, User, Code, GraduationCap, Mail, Github, Linkedin, ExternalLink, Download } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Home, User, Code, GraduationCap, Mail, Github, Linkedin, ExternalLink, Download, Sun, Moon, SunMoon, Menu, X } from 'lucide-react';
+
+const ThemeSwitcher = () => {
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'system');
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    const isDark =
+      theme === 'dark' ||
+      (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    root.classList.toggle('dark', isDark);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const cycleTheme = () => {
+    const themes = ['light', 'dark', 'system'];
+    const currentThemeIndex = themes.indexOf(theme);
+    const nextTheme = themes[(currentThemeIndex + 1) % themes.length];
+    setTheme(nextTheme);
+  };
+
+  const ThemeIcon = () => {
+    if (theme === 'light') return <Sun size={20} />;
+    if (theme === 'dark') return <Moon size={20} />;
+    return <SunMoon size={20} />;
+  };
+
+  return (
+    <button
+      onClick={cycleTheme}
+      className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+    >
+      <ThemeIcon />
+    </button>
+  );
+};
 
 const Portfolio = () => {
   const [activeTab, setActiveTab] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const NavButton = ({ id, icon: Icon, label, isActive, onClick }) => (
     <button
@@ -10,16 +46,16 @@ const Portfolio = () => {
       className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
         isActive
           ? 'bg-blue-600 text-white shadow-lg transform scale-105'
-          : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+          : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800'
       }`}
     >
       <Icon size={20} />
-      <span className="hidden sm:block">{label}</span>
+      <span className="block">{label}</span>
     </button>
   );
 
   const HomePage = () => (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-black">
       <div className="text-center space-y-8 px-4">
         <div className="relative">
           <div className="w-32 h-32 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-2xl">
@@ -29,20 +65,20 @@ const Portfolio = () => {
         </div>
         
         <div className="space-y-4">
-          <h1 className="text-5xl font-bold text-gray-800 mb-2">
-            Hi, I'm <span className="text-blue-600">Jit Roy</span>
+          <h1 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+            Hi, I'm <span className="text-blue-600 dark:text-blue-400">Jit Roy</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Computer Science Student passionate about building innovative solutions and exploring cutting-edge technologies
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
-            <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+            <span className="px-4 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 rounded-full text-sm font-medium">
               Full Stack Developer
             </span>
-            <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+            <span className="px-4 py-2 bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 rounded-full text-sm font-medium">
               AI Enthusiast
             </span>
-            <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+            <span className="px-4 py-2 bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300 rounded-full text-sm font-medium">
               Problem Solver
             </span>
           </div>
@@ -55,7 +91,7 @@ const Portfolio = () => {
           >
             Get In Touch
           </button>
-          <button className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors flex items-center gap-2">
+          <button className="border border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-400 px-8 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
             <Download size={20} />
             Resume
           </button>
@@ -65,14 +101,14 @@ const Portfolio = () => {
   );
 
   const SkillsPage = () => (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Skills & Technologies</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">Skills & Technologies</h2>
         
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-            <h3 className="text-xl font-semibold mb-6 text-gray-800 flex items-center gap-2">
-              <Code className="text-blue-600" size={24} />
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200 flex items-center gap-2">
+              <Code className="text-blue-600 dark:text-blue-400" size={24} />
               Programming Languages
             </h3>
             <div className="space-y-4">
@@ -85,12 +121,12 @@ const Portfolio = () => {
               ].map((skill, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm font-medium text-gray-700">{skill.name}</span>
-                    <span className="text-sm text-gray-500">{skill.level}%</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{skill.name}</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div 
-                      className="bg-blue-600 h-2 rounded-full transition-all duration-1000"
+                      className="bg-blue-600 dark:bg-blue-500 h-2 rounded-full transition-all duration-1000"
                       style={{ width: `${skill.level}%` }}
                     ></div>
                   </div>
@@ -99,23 +135,23 @@ const Portfolio = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-            <h3 className="text-xl font-semibold mb-6 text-gray-800">Web Technologies</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200">Web Technologies</h3>
             <div className="grid grid-cols-2 gap-4">
               {[
                 'React', 'Node.js', 'Express', 'MongoDB',
                 'PostgreSQL', 'HTML5', 'CSS3', 'Tailwind CSS',
                 'Next.js', 'GraphQL', 'REST APIs', 'Git'
               ].map((tech, index) => (
-                <div key={index} className="bg-gray-50 rounded-lg p-3 text-center text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 text-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                   {tech}
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-            <h3 className="text-xl font-semibold mb-6 text-gray-800">Tools & Frameworks</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200">Tools & Frameworks</h3>
             <div className="space-y-3">
               {[
                 'Machine Learning (TensorFlow, PyTorch)',
@@ -125,9 +161,9 @@ const Portfolio = () => {
                 'Test-Driven Development',
                 'CI/CD Pipelines'
               ].map((tool, index) => (
-                <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                  <span className="text-sm text-gray-700">{tool}</span>
+                <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+                  <div className="w-2 h-2 bg-blue-600 dark:bg-blue-500 rounded-full"></div>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">{tool}</span>
                 </div>
               ))}
             </div>
@@ -138,9 +174,9 @@ const Portfolio = () => {
   );
 
   const ProjectsPage = () => (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">My Projects</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">My Projects</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
@@ -165,19 +201,19 @@ const Portfolio = () => {
               image: 'https://cdn.dribbble.com/userupload/43670863/file/original-a905a8d05e8b69c8452c7409f8794584.webp?resize=1024x745&vertical=center',
             },
           ].map((project, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow flex flex-col overflow-hidden">
+            <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow flex flex-col overflow-hidden">
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">{project.title}</h3>
-                <p className="text-gray-600 mb-4 flex-grow">{project.description}</p>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-200">{project.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, i) => (
-                    <span key={i} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                    <span key={i} className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 rounded-full text-xs font-medium">
                       {tag}
                     </span>
                   ))}
                 </div>
-                <a href={project.link} className="text-blue-600 hover:underline mt-auto flex items-center gap-1">
+                <a href={project.link} className="text-blue-600 dark:text-blue-400 hover:underline mt-auto flex items-center gap-1">
                   View Project <ExternalLink size={16} />
                 </a>
               </div>
@@ -189,31 +225,31 @@ const Portfolio = () => {
   );
 
   const AboutPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-900 dark:to-black py-12">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">About Me</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">About Me</h2>
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">My Journey</h3>
-              <p className="text-gray-600 leading-relaxed">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">My Journey</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 I'm a passionate computer science student with a deep fascination for technology and its potential to solve real-world problems. My journey began in high school when I first discovered programming, and since then, I've been on an exciting path of continuous learning and growth.
               </p>
             </div>
             
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">What Drives Me</h3>
-              <p className="text-gray-600 leading-relaxed">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">What Drives Me</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 I believe in the power of technology to make a positive impact on society. Whether it's developing efficient algorithms, creating user-friendly applications, or exploring the frontiers of artificial intelligence, I'm always eager to tackle new challenges and push the boundaries of what's possible.
               </p>
             </div>
           </div>
           
           <div className="space-y-6">
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Current Focus</h3>
-              <ul className="space-y-3 text-gray-600">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Current Focus</h3>
+              <ul className="space-y-3 text-gray-600 dark:text-gray-400">
                 <li className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                   Full-stack web development with React and Node.js
@@ -233,29 +269,29 @@ const Portfolio = () => {
               </ul>
             </div>
             
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Beyond Coding</h3>
-              <p className="text-gray-600 leading-relaxed">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Beyond Coding</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 When I'm not coding, you can find me playing chess, hiking in nature, or experimenting with new recipes. I believe that diverse experiences and interests contribute to better problem-solving skills and creativity in programming.
               </p>
             </div>
           </div>
         </div>
         
-        <div className="mt-12 bg-white rounded-xl p-8 shadow-lg text-center">
-          <h3 className="text-2xl font-semibold mb-4 text-gray-800">Fun Facts About Me</h3>
+        <div className="mt-12 bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg text-center">
+          <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Fun Facts About Me</h3>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <h4 className="font-medium text-blue-800 mb-2">🏆 Achievements</h4>
-              <p className="text-sm text-blue-600">Won 3 hackathons and contributed to 15+ open source projects</p>
+            <div className="p-4 bg-blue-50 dark:bg-blue-900/50 rounded-lg">
+              <h4 className="font-medium text-blue-800 dark:text-blue-300 mb-2">🏆 Achievements</h4>
+              <p className="text-sm text-blue-600 dark:text-blue-400">Won 3 hackathons and contributed to 15+ open source projects</p>
             </div>
-            <div className="p-4 bg-green-50 rounded-lg">
-              <h4 className="font-medium text-green-800 mb-2">☕ Productivity</h4>
-              <p className="text-sm text-green-600">Powered by coffee and fueled by curiosity for learning new technologies</p>
+            <div className="p-4 bg-green-50 dark:bg-green-900/50 rounded-lg">
+              <h4 className="font-medium text-green-800 dark:text-green-300 mb-2">☕ Productivity</h4>
+              <p className="text-sm text-green-600 dark:text-green-400">Powered by coffee and fueled by curiosity for learning new technologies</p>
             </div>
-            <div className="p-4 bg-purple-50 rounded-lg">
-              <h4 className="font-medium text-purple-800 mb-2">🎯 Goals</h4>
-              <p className="text-sm text-purple-600">Aspiring to work in cutting-edge tech companies and contribute to innovative solutions</p>
+            <div className="p-4 bg-purple-50 dark:bg-purple-900/50 rounded-lg">
+              <h4 className="font-medium text-purple-800 dark:text-purple-300 mb-2">🎯 Goals</h4>
+              <p className="text-sm text-purple-600 dark:text-purple-400">Aspiring to work in cutting-edge tech companies and contribute to innovative solutions</p>
             </div>
           </div>
         </div>
@@ -264,50 +300,50 @@ const Portfolio = () => {
   );
 
   const ContactPage = () => (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Get In Touch</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">Get In Touch</h2>
         
         <div className="grid md:grid-cols-2 gap-12">
           <div className="flex flex-col gap-8">
-            <div className="bg-white rounded-xl p-6 shadow-lg flex-1">
-              <h3 className="text-2xl font-semibold mb-6 text-gray-800">Contact Information</h3>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg flex-1">
+              <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">Contact Information</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <Mail className="text-blue-600" size={20} />
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
+                    <Mail className="text-blue-600 dark:text-blue-400" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-800">Email</h4>
-                    <p className="text-gray-600">jit@email.com</p>
+                    <h4 className="font-medium text-gray-800 dark:text-gray-200">Email</h4>
+                    <p className="text-gray-600 dark:text-gray-400">jit@email.com</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-                    <Github className="text-gray-600" size={20} />
+                  <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                    <Github className="text-gray-600 dark:text-gray-400" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-800">GitHub</h4>
-                    <p className="text-gray-600">github.com/JitRoy-dev</p>
+                    <h4 className="font-medium text-gray-800 dark:text-gray-200">GitHub</h4>
+                    <p className="text-gray-600 dark:text-gray-400">github.com/JitRoy-dev</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <Linkedin className="text-blue-600" size={20} />
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
+                    <Linkedin className="text-blue-600 dark:text-blue-400" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-800">LinkedIn</h4>
-                    <p className="text-gray-600">linkedin.com/in/JitRoy</p>
+                    <h4 className="font-medium text-gray-800 dark:text-gray-200">LinkedIn</h4>
+                    <p className="text-gray-600 dark:text-gray-400">linkedin.com/in/JitRoy</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white rounded-xl p-6 shadow-lg flex-1">
-              <h3 className="text-xl font-semibold mb-4 text-gray-800">Let's Connect!</h3>
-              <p className="text-gray-600 leading-relaxed mb-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg flex-1">
+              <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Let's Connect!</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                 I'm always open to discussing new opportunities, collaborating on interesting projects, or just having a conversation about technology. Feel free to reach out!
               </p>
               <div className="flex gap-4 mt-2">
@@ -315,7 +351,7 @@ const Portfolio = () => {
                   <Github size={16} />
                   View GitHub
                 </button>
-                <button className="border border-blue-600 text-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50 transition-colors flex items-center gap-2 hover:cursor-pointer">
+                <button className="border border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-400 px-6 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 hover:cursor-pointer">
                   <Linkedin size={16} />
                   LinkedIn
                 </button>
@@ -323,41 +359,41 @@ const Portfolio = () => {
             </div>
           </div>
           
-          <div className="bg-white rounded-xl p-6 shadow-lg">
-            <h3 className="text-2xl font-semibold mb-6 text-gray-800">Send a Message</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">Send a Message</h3>
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
                   placeholder="Your name"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
                   placeholder="your.email@example.com"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
                   placeholder="What's this about?"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
                 <textarea
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors resize-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
                   placeholder="Tell me about your project or just say hello!"
                 />
               </div>
@@ -392,49 +428,36 @@ const Portfolio = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 z-50">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-700 z-50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            <div className="font-bold text-xl text-gray-800">Jit Roy</div>
+            <div className="font-bold text-xl text-gray-800 dark:text-white">Jit Roy</div>
             <div className="flex items-center gap-2">
-              <NavButton
-                id="home"
-                icon={Home}
-                label="Home"
-                isActive={activeTab === 'home'}
-                onClick={() => setActiveTab('home')}
-              />
-              <NavButton
-                id="skills"
-                icon={Code}
-                label="Skills"
-                isActive={activeTab === 'skills'}
-                onClick={() => setActiveTab('skills')}
-              />
-              <NavButton
-                id="projects"
-                icon={GraduationCap}
-                label="Projects"
-                isActive={activeTab === 'projects'}
-                onClick={() => setActiveTab('projects')}
-              />
-              <NavButton
-                id="about"
-                icon={User}
-                label="About"
-                isActive={activeTab === 'about'}
-                onClick={() => setActiveTab('about')}
-              />
-              <NavButton
-                id="contact"
-                icon={Mail}
-                label="Contact"
-                isActive={activeTab === 'contact'}
-                onClick={() => setActiveTab('contact')}
-              />
+              <div className="hidden md:flex items-center gap-2">
+                <NavButton id="home" icon={Home} label="Home" isActive={activeTab === 'home'} onClick={() => setActiveTab('home')} />
+                <NavButton id="skills" icon={Code} label="Skills" isActive={activeTab === 'skills'} onClick={() => setActiveTab('skills')} />
+                <NavButton id="projects" icon={GraduationCap} label="Projects" isActive={activeTab === 'projects'} onClick={() => setActiveTab('projects')} />
+                <NavButton id="about" icon={User} label="About" isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
+                <NavButton id="contact" icon={Mail} label="Contact" isActive={activeTab === 'contact'} onClick={() => setActiveTab('contact')} />
+              </div>
+              <ThemeSwitcher />
+              <div className="md:hidden">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-lg text-gray-600 dark:text-gray-300">
+                  {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                </button>
+              </div>
             </div>
           </div>
+          {isMenuOpen && (
+            <div className="md:hidden flex flex-col gap-4 py-2">
+              <NavButton id="home" icon={Home} label="Home" isActive={activeTab === 'home'} onClick={() => { setActiveTab('home'); setIsMenuOpen(false); }} />
+              <NavButton id="skills" icon={Code} label="Skills" isActive={activeTab === 'skills'} onClick={() => { setActiveTab('skills'); setIsMenuOpen(false); }} />
+              <NavButton id="projects" icon={GraduationCap} label="Projects" isActive={activeTab === 'projects'} onClick={() => { setActiveTab('projects'); setIsMenuOpen(false); }} />
+              <NavButton id="about" icon={User} label="About" isActive={activeTab === 'about'} onClick={() => { setActiveTab('about'); setIsMenuOpen(false); }} />
+              <NavButton id="contact" icon={Mail} label="Contact" isActive={activeTab === 'contact'} onClick={() => { setActiveTab('contact'); setIsMenuOpen(false); }} />
+            </div>
+          )}
         </div>
       </nav>
       
