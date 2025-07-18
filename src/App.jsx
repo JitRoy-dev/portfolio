@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Home, User, Code, GraduationCap, Mail, Github, Linkedin, ExternalLink, Download, Sun, Moon, SunMoon, Menu, X } from 'lucide-react';
 
 const ThemeSwitcher = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'system');
+  const [theme, setTheme] = useState('system');
+
+  useEffect(() => {
+    // Initialize theme from localStorage after component mounts
+    const savedTheme = localStorage.getItem('theme') || 'system';
+    setTheme(savedTheme);
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -37,8 +43,17 @@ const ThemeSwitcher = () => {
 };
 
 const Portfolio = () => {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(sectionId);
+      setIsMenuOpen(false);
+    }
+  };
 
   const NavButton = ({ id, icon: Icon, label, isActive, onClick }) => (
     <button
@@ -73,11 +88,11 @@ const Portfolio = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <span className="px-4 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 rounded-full text-sm font-medium">
-              Full Stack Developer
+              Front End Developer
             </span>
-            <span className="px-4 py-2 bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 rounded-full text-sm font-medium">
+            {/* <span className="px-4 py-2 bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 rounded-full text-sm font-medium">
               AI Enthusiast
-            </span>
+            </span> */}
             <span className="px-4 py-2 bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300 rounded-full text-sm font-medium">
               Problem Solver
             </span>
@@ -86,7 +101,7 @@ const Portfolio = () => {
         
         <div className="flex justify-center gap-4">
           <button
-            onClick={() => setActiveTab('contact')}
+            onClick={() => scrollToSection('contact')}
             className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             Get In Touch
@@ -140,8 +155,8 @@ const Portfolio = () => {
             <div className="grid grid-cols-2 gap-4">
               {[
                 'React', 'Node.js', 'Express', 'MongoDB',
-                'PostgreSQL', 'HTML5', 'CSS3', 'Tailwind CSS',
-                'Next.js', 'GraphQL', 'REST APIs', 'Git'
+                'PostgreSQL', 'HTML5', 'Tailwind CSS',
+                'Next.js'
               ].map((tech, index) => (
                 <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 text-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                   {tech}
@@ -156,10 +171,7 @@ const Portfolio = () => {
               {[
                 'Machine Learning (TensorFlow, PyTorch)',
                 'Cloud Platforms (AWS, GCP)',
-                'Docker & Kubernetes',
-                'Agile Development',
-                'Test-Driven Development',
-                'CI/CD Pipelines'
+                'Docker',    
               ].map((tool, index) => (
                 <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
                   <div className="w-2 h-2 bg-blue-600 dark:bg-blue-500 rounded-full"></div>
@@ -260,12 +272,12 @@ const Portfolio = () => {
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
-                  Cloud computing and DevOps practices
+                  Cloud computing
                 </li>
-                <li className="flex items-center gap-3">
+                {/* <li className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-red-600 rounded-full"></div>
                   Open source contributions
-                </li>
+                </li> */}
               </ul>
             </div>
             
@@ -283,7 +295,7 @@ const Portfolio = () => {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="p-4 bg-blue-50 dark:bg-blue-900/50 rounded-lg">
               <h4 className="font-medium text-blue-800 dark:text-blue-300 mb-2">🏆 Achievements</h4>
-              <p className="text-sm text-blue-600 dark:text-blue-400">Won 3 hackathons and contributed to 15+ open source projects</p>
+              <p className="text-sm text-blue-600 dark:text-blue-400">Won 1 hackathon</p>
             </div>
             <div className="p-4 bg-green-50 dark:bg-green-900/50 rounded-lg">
               <h4 className="font-medium text-green-800 dark:text-green-300 mb-2">☕ Productivity</h4>
@@ -410,23 +422,6 @@ const Portfolio = () => {
     </div>
   );
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'home':
-        return <HomePage />;
-      case 'skills':
-        return <SkillsPage />;
-      case 'projects':
-        return <ProjectsPage />;
-      case 'about':
-        return <AboutPage />;
-      case 'contact':
-        return <ContactPage />;
-      default:
-        return <HomePage />;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-700 z-50">
@@ -435,11 +430,11 @@ const Portfolio = () => {
             <div className="font-bold text-xl text-gray-800 dark:text-white">Jit Roy</div>
             <div className="flex items-center gap-2">
               <div className="hidden md:flex items-center gap-2">
-                <NavButton id="home" icon={Home} label="Home" isActive={activeTab === 'home'} onClick={() => setActiveTab('home')} />
-                <NavButton id="skills" icon={Code} label="Skills" isActive={activeTab === 'skills'} onClick={() => setActiveTab('skills')} />
-                <NavButton id="projects" icon={GraduationCap} label="Projects" isActive={activeTab === 'projects'} onClick={() => setActiveTab('projects')} />
-                <NavButton id="about" icon={User} label="About" isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
-                <NavButton id="contact" icon={Mail} label="Contact" isActive={activeTab === 'contact'} onClick={() => setActiveTab('contact')} />
+                <NavButton id="home" icon={Home} label="Home" isActive={activeSection === 'home'} onClick={() => scrollToSection('home')} />
+                <NavButton id="skills" icon={Code} label="Skills" isActive={activeSection === 'skills'} onClick={() => scrollToSection('skills')} />
+                <NavButton id="projects" icon={GraduationCap} label="Projects" isActive={activeSection === 'projects'} onClick={() => scrollToSection('projects')} />
+                <NavButton id="about" icon={User} label="About" isActive={activeSection === 'about'} onClick={() => scrollToSection('about')} />
+                <NavButton id="contact" icon={Mail} label="Contact" isActive={activeSection === 'contact'} onClick={() => scrollToSection('contact')} />
               </div>
               <ThemeSwitcher />
               <div className="md:hidden">
@@ -451,18 +446,32 @@ const Portfolio = () => {
           </div>
           {isMenuOpen && (
             <div className="md:hidden flex flex-col gap-4 py-2">
-              <NavButton id="home" icon={Home} label="Home" isActive={activeTab === 'home'} onClick={() => { setActiveTab('home'); setIsMenuOpen(false); }} />
-              <NavButton id="skills" icon={Code} label="Skills" isActive={activeTab === 'skills'} onClick={() => { setActiveTab('skills'); setIsMenuOpen(false); }} />
-              <NavButton id="projects" icon={GraduationCap} label="Projects" isActive={activeTab === 'projects'} onClick={() => { setActiveTab('projects'); setIsMenuOpen(false); }} />
-              <NavButton id="about" icon={User} label="About" isActive={activeTab === 'about'} onClick={() => { setActiveTab('about'); setIsMenuOpen(false); }} />
-              <NavButton id="contact" icon={Mail} label="Contact" isActive={activeTab === 'contact'} onClick={() => { setActiveTab('contact'); setIsMenuOpen(false); }} />
+              <NavButton id="home" icon={Home} label="Home" isActive={activeSection === 'home'} onClick={() => scrollToSection('home')} />
+              <NavButton id="skills" icon={Code} label="Skills" isActive={activeSection === 'skills'} onClick={() => scrollToSection('skills')} />
+              <NavButton id="projects" icon={GraduationCap} label="Projects" isActive={activeSection === 'projects'} onClick={() => scrollToSection('projects')} />
+              <NavButton id="about" icon={User} label="About" isActive={activeSection === 'about'} onClick={() => scrollToSection('about')} />
+              <NavButton id="contact" icon={Mail} label="Contact" isActive={activeSection === 'contact'} onClick={() => scrollToSection('contact')} />
             </div>
           )}
         </div>
       </nav>
       
-      <main className="pt-16">
-        {renderContent()}
+      <main>
+        <section id="home">
+          <HomePage />
+        </section>
+        <section id="skills">
+          <SkillsPage />
+        </section>
+        <section id="projects">
+          <ProjectsPage />
+        </section>
+        <section id="about">
+          <AboutPage />
+        </section>
+        <section id="contact">
+          <ContactPage />
+        </section>
       </main>
     </div>
   );
