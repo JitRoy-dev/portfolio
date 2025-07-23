@@ -59,11 +59,10 @@ const Portfolio = () => {
   const NavButton = ({ id, icon: Icon, label, isActive, onClick }) => (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-        isActive
-          ? 'bg-purple-600 text-white shadow-lg transform scale-105'
-          : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-800 hover:cursor-pointer'
-      }`}
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive
+        ? 'bg-purple-600 text-white shadow-lg transform scale-105'
+        : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-800 hover:cursor-pointer'
+        }`}
     >
       <Icon size={20} />
       <span className="block">{label}</span>
@@ -107,7 +106,7 @@ const Portfolio = () => {
               <User size={64} className="text-white" />
             </div>
           </div>
-          
+
           <div className="space-y-4">
             <h1 className="text-5xl font-bold text-gray-200 mb-2">
               Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-gradient">Jit Roy</span>
@@ -124,7 +123,7 @@ const Portfolio = () => {
               </span>
             </div>
           </div>
-          
+
           <div className="flex justify-center gap-4">
             <button
               onClick={() => scrollToSection('contact')}
@@ -146,7 +145,7 @@ const Portfolio = () => {
     <div className="min-h-screen bg-gray-900 py-12 pt-20">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-200">Skills & Technologies</h2>
-        
+
         <div className="grid md:grid-cols-3 gap-8">
           <div className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
             <h3 className="text-xl font-semibold mb-6 text-gray-200 flex items-center gap-2">
@@ -167,7 +166,7 @@ const Portfolio = () => {
                     <span className="text-sm text-gray-400">{skill.level}%</span>
                   </div>
                   <div className="w-full bg-gray-700 rounded-full h-2">
-                    <div 
+                    <div
                       className="bg-purple-500 h-2 rounded-full transition-all duration-1000"
                       style={{ width: `${skill.level}%` }}
                     ></div>
@@ -198,7 +197,7 @@ const Portfolio = () => {
               {[
                 'Machine Learning (TensorFlow, PyTorch)',
                 'Cloud Platforms (AWS, GCP)',
-                'Docker',    
+                'Docker',
               ].map((tool, index) => (
                 <div key={index} className="flex items-center gap-3 p-3 bg-gray-700 rounded-lg hover:bg-gray-700 transition-colors">
                   <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
@@ -267,7 +266,7 @@ const Portfolio = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black py-12 pt-20">
       <div className="max-w-4xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-200">About Me</h2>
-        
+
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <div className="bg-gray-800 rounded-xl p-6 shadow-lg">
@@ -276,7 +275,7 @@ const Portfolio = () => {
                 I'm a passionate computer science student with a deep fascination for technology and its potential to solve real-world problems. My journey began in high school when I first discovered programming, and since then, I've been on an exciting path of continuous learning and growth.
               </p>
             </div>
-            
+
             <div className="bg-gray-800 rounded-xl p-6 shadow-lg">
               <h3 className="text-2xl font-semibold mb-4 text-gray-200">What Drives Me</h3>
               <p className="text-gray-400 leading-relaxed">
@@ -284,7 +283,7 @@ const Portfolio = () => {
               </p>
             </div>
           </div>
-          
+
           <div className="space-y-6">
             <div className="bg-gray-800 rounded-xl p-6 shadow-lg">
               <h3 className="text-2xl font-semibold mb-4 text-gray-200">Current Focus</h3>
@@ -303,7 +302,7 @@ const Portfolio = () => {
                 </li>
               </ul>
             </div>
-            
+
             <div className="bg-gray-800 rounded-xl p-6 shadow-lg">
               <h3 className="text-2xl font-semibold mb-4 text-gray-200">Beyond Coding</h3>
               <p className="text-gray-400 leading-relaxed">
@@ -312,7 +311,7 @@ const Portfolio = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="mt-12 bg-gray-800 rounded-xl p-8 shadow-lg text-center">
           <h3 className="text-2xl font-semibold mb-4 text-gray-200">Fun Facts About Me</h3>
           <div className="grid md:grid-cols-3 gap-6">
@@ -338,7 +337,7 @@ const Portfolio = () => {
     <div className="min-h-screen bg-gray-900 py-12 pt-20">
       <div className="max-w-4xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-200">Get In Touch</h2>
-        
+
         <div className="grid md:grid-cols-2 gap-12">
           <div className="flex flex-col gap-8">
             <div className="bg-gray-800 rounded-xl p-6 shadow-lg flex-1">
@@ -353,7 +352,7 @@ const Portfolio = () => {
                     <p className="text-gray-400">jit@email.com</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
                     <Github className="text-gray-400" size={20} />
@@ -363,7 +362,7 @@ const Portfolio = () => {
                     <p className="text-gray-400">github.com/JitRoy-dev</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-purple-900/50 rounded-full flex items-center justify-center">
                     <Linkedin className="text-purple-400" size={20} />
@@ -375,25 +374,38 @@ const Portfolio = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-gray-800 rounded-xl p-6 shadow-lg flex-1">
               <h3 className="text-xl font-semibold mb-4 text-gray-200">Let's Connect!</h3>
               <p className="text-gray-400 leading-relaxed mb-6">
                 I'm always open to discussing new opportunities, collaborating on interesting projects, or just having a conversation about technology. Feel free to reach out!
               </p>
               <div className="flex gap-4 mt-2">
-                <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2 hover:cursor-pointer">
-                  <Github size={16} />
-                  View GitHub
-                </button>
-                <button className="border border-purple-500 text-purple-400 px-6 py-2 rounded-lg hover:bg-purple-900/50 transition-colors flex items-center gap-2 hover:cursor-pointer">
-                  <Linkedin size={16} />
-                  LinkedIn
-                </button>
+                <a
+                  href="https://github.com/JitRoy-dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2 hover:cursor-pointer">
+                    <Github size={16} />
+                    View GitHub
+                  </button>
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/JitRoy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="border border-purple-500 text-purple-400 px-6 py-2 rounded-lg hover:bg-purple-900/50 transition-colors flex items-center gap-2 hover:cursor-pointer">
+                    <Linkedin size={16} />
+                    LinkedIn
+                  </button>
+                </a>
               </div>
             </div>
           </div>
-          
+
           <div className="bg-gray-800 rounded-xl p-6 shadow-lg">
             <h3 className="text-2xl font-semibold mb-6 text-gray-200">Send a Message</h3>
             <div className="space-y-6">
@@ -405,7 +417,7 @@ const Portfolio = () => {
                   placeholder="Your name"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
                 <input
@@ -414,7 +426,7 @@ const Portfolio = () => {
                   placeholder="your.email@example.com"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Subject</label>
                 <input
@@ -423,7 +435,7 @@ const Portfolio = () => {
                   placeholder="What's this about?"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
                 <textarea
@@ -432,7 +444,7 @@ const Portfolio = () => {
                   placeholder="Tell me about your project or just say hello!"
                 />
               </div>
-              
+
               <button
                 className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium shadow-lg hover:shadow-xl transform hover:scale-105 hover:cursor-pointer"
               >
@@ -478,7 +490,7 @@ const Portfolio = () => {
           )}
         </div>
       </nav>
-      
+
       <main>
         <section id="home">
           <HomePage />
