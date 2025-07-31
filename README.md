@@ -10,3 +10,11 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+## .env.local
+VITE_DATABASE = your_database_name
+VITE_AUTH_TOKEN = your_token
+VITE_BASE_URL = https://v5.frontql.dev
+VITE_FQ_LOCAL_SERVER_PORT = 4466
+VITE_FQ_LOCAL_SERVER = http://localhost:4466
