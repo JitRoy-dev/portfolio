@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { Home, User, Code, GraduationCap, Mail, Menu, X } from 'lucide-react';
 
-// Components
 import ThemeSwitcher from './components/ThemeSwitcher';
 import NavButton from './components/NavButton';
 
-// Pages
 import HomePage from './pages/HomePage';
 import SkillsPage from './pages/SkillsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 
-const Portfolio = () => {
-  const [activeSection, setActiveSection] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Portfolio: React.FC = () => {
+  const [activeSection, setActiveSection] = useState<string>('home');
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId: string): void => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });

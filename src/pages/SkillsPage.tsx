@@ -1,7 +1,12 @@
 import React from 'react';
 import { Code } from 'lucide-react';
 
-const SkillsPage = () => (
+interface Skill {
+  name: string;
+  level: number;
+}
+
+const SkillsPage: React.FC = () => (
   <div className="min-h-screen bg-gray-900 py-12 pt-20">
     <div className="max-w-6xl mx-auto px-4">
       <h2 className="text-4xl font-bold text-center mb-12 text-gray-200">Skills & Technologies</h2>
@@ -13,13 +18,13 @@ const SkillsPage = () => (
             Programming Languages
           </h3>
           <div className="space-y-4">
-            {[
+            {([
               { name: 'Python', level: 90 },
               { name: 'JavaScript', level: 85 },
               { name: 'Java', level: 80 },
               { name: 'C++', level: 75 },
               { name: 'TypeScript', level: 70 }
-            ].map((skill, index) => (
+            ] as Skill[]).map((skill, index) => (
               <div key={index} className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium text-gray-300">{skill.name}</span>
@@ -27,8 +32,8 @@ const SkillsPage = () => (
                 </div>
                 <div className="w-full bg-gray-700 rounded-full h-2">
                   <div
-                    className="bg-purple-500 h-2 rounded-full transition-all duration-1000"
-                    style={{ width: `${skill.level}%` }}
+                    className="bg-purple-500 h-2 rounded-full transition-all duration-1000 skill-progress-bar"
+                    data-skill-level={skill.level}
                   ></div>
                 </div>
               </div>

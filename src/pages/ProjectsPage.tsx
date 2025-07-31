@@ -1,12 +1,20 @@
 import React from 'react';
 import { ExternalLink } from 'lucide-react';
 
-const ProjectsPage = () => (
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  image: string;
+}
+
+const ProjectsPage: React.FC = () => (
   <div className="min-h-screen bg-gray-900 py-12 pt-20">
     <div className="max-w-6xl mx-auto px-4">
       <h2 className="text-4xl font-bold text-center mb-12 text-gray-200">My Projects</h2>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[
+        {([
           {
             title: 'Project One',
             description: 'A brief description of the first project, highlighting the key technologies and features.',
@@ -28,7 +36,7 @@ const ProjectsPage = () => (
             link: '#',
             image: 'https://cdn.dribbble.com/userupload/43670863/file/original-a905a8d05e8b69c8452c7409f8794584.webp?resize=1024x745&vertical=center',
           },
-        ].map((project, index) => (
+        ] as Project[]).map((project, index) => (
           <div key={index} className="bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow flex flex-col overflow-hidden">
             <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
             <div className="p-6 flex flex-col flex-grow">

@@ -2,13 +2,17 @@ import React, { useRef, useEffect } from 'react';
 import { User, Download } from 'lucide-react';
 import webglFluid from 'webgl-fluid';
 
-const HomePage = ({ scrollToSection }) => {
-  const canvasRef = useRef(null);
+interface HomePageProps {
+  scrollToSection: (sectionId: string) => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ scrollToSection }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
       const timeoutId = setTimeout(() => {
-        webglFluid(canvasRef.current, {
+        webglFluid(canvasRef.current!, {
           IMPRESS: 0.8,
           DENSITY_DISSIPATION: 0.98,
           VELOCITY_DISSIPATION: 0.99,

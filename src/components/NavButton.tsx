@@ -1,6 +1,15 @@
 import React from 'react';
+import { type LucideIcon } from 'lucide-react';
 
-const NavButton = ({ icon: Icon, label, isActive, onClick }) => (
+interface NavButtonProps {
+  id: string;
+  icon: LucideIcon;
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const NavButton: React.FC<NavButtonProps> = ({ icon: Icon, label, isActive, onClick }) => (
   <button
     onClick={onClick}
     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${isActive

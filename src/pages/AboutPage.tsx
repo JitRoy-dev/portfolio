@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AboutPage = () => (
+const AboutPage: React.FC = () => (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black py-12 pt-20">
         <div className="max-w-4xl mx-auto px-4">
             <h2 className="text-4xl font-bold text-center mb-12 text-gray-200">About Me</h2>
