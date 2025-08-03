@@ -8,8 +8,14 @@ const ThemeSwitcher: React.FC = () => {
 
   useEffect(() => {
     // Initialize theme from localStorage after component mounts
-    const savedTheme = (localStorage.getItem('theme') as Theme) || 'system';
-    setTheme(savedTheme);
+    const savedTheme = localStorage.getItem('theme');
+    const validThemes: Theme[] = ['light', 'dark', 'system'];
+    
+    if (savedTheme && validThemes.includes(savedTheme as Theme)) {
+      setTheme(savedTheme as Theme);
+    } else {
+      setTheme('system');
+    }
   }, []);
 
   useEffect(() => {
@@ -17,8 +23,19 @@ const ThemeSwitcher: React.FC = () => {
     const isDark =
       theme === 'dark' ||
       (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    root.classList.toggle('dark', isDark);
+    
+    // Remove existing theme classes
+    root.classList.remove('light', 'dark');
+    
+    // Add the appropriate class
+    if (isDark) {
+      root.classList.add('dark');
+    } else {
+      root.classList.add('light');
+    }
+    
     localStorage.setItem('theme', theme);
+    console.log('Theme changed to:', theme, 'isDark:', isDark, 'classes:', root.className);
   }, [theme]);
 
   const cycleTheme = (): void => {
