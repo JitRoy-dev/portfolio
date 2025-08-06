@@ -1,5 +1,8 @@
 import React from 'react';
 import { ExternalLink } from 'lucide-react';
+import aiBusinessImage from '../assets/ai_business.png';
+import schoolMan from '../assets/school_app.png';
+import finAI from '../assets/finAi.jpeg';
 
 interface Project {
   title: string;
@@ -16,25 +19,25 @@ const ProjectsPage: React.FC = () => (
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {([
           {
-            title: 'Project One',
-            description: 'A brief description of the first project, highlighting the key technologies and features.',
-            tags: ['React', 'Node.js', 'MongoDB'],
-            link: '#',
-            image: 'https://cdn.dribbble.com/userupload/37305957/file/original-a8eff2815779a09a595bc733b6b76a6a.png?resize=1024x768&vertical=center',
+            title: 'Ai Business Solutions',
+            description: 'Leverage cutting-edge artificial intelligence to optimize operations, increase revenue, and drive growth.',
+            tags: ['React', 'Tailwind', 'JavaScript'],
+            link: 'https://github.com/JitRoy-dev/AI_BusinessSolutionsDemo',
+            image: aiBusinessImage,
           },
           {
-            title: 'Project Two',
-            description: 'A brief description of the second project, highlighting the key technologies and features.',
-            tags: ['Python', 'TensorFlow', 'Flask'],
-            link: '#',
-            image: 'https://cdn.dribbble.com/userupload/43074059/file/original-e723fe6f81f0188a4f4676abbcf06294.webp?resize=1504x1128&vertical=center',
+            title: 'School Management Website',
+            description: 'A daily records, event, etc. management website for schools.',
+            tags: ['Next.js', 'Prisma', 'Docker'],
+            link: 'https://github.com/JitRoy-dev/college-management-mini-project/tree/main/full-stack-school-main',
+            image: schoolMan,
           },
           {
-            title: 'Project Three',
+            title: 'AI based Finance App',
             description: 'A brief description of the third project, highlighting the key technologies and features.',
-            tags: ['Next.js', 'GraphQL', 'PostgreSQL'],
-            link: '#',
-            image: 'https://cdn.dribbble.com/userupload/43670863/file/original-a905a8d05e8b69c8452c7409f8794584.webp?resize=1024x745&vertical=center',
+            tags: ['Dart', 'Supabase', 'PostgreSQL'],
+            link: 'https://github.com/JitRoy-dev/AI-FInance-App',
+            image: finAI,
           },
         ] as Project[]).map((project, index) => (
           <div key={index} className="bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow flex flex-col overflow-hidden">
